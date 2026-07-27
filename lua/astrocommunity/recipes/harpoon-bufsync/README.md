@@ -1,10 +1,17 @@
 # Harpoon BufSync
 
-Sync your AstroNvim buffer tabline to your Harpoon marks — close, open, and sort buffers based on your pinned files.
+> Bidirectional buffer synchronization between AstroNvim tabline and Harpoon marks
 
 ## Overview
 
-Harpoon lets you pin frequently-used files for quick navigation. But your tabline (Heirline) doesn't reflect that order — it tracks buffers by open-time and internal buffer ID. This recipe bridges that gap: with a single keybind (`<Leader>bsh`), it closes non-Harpoon buffers, opens missing Harpoon files, and sorts the tabline to match your Harpoon order.
+Harpoon lets you pin frequently-used files for quick navigation. But your tabline (Heirline) doesn't reflect that order — it tracks buffers by open-time and internal buffer ID.
+
+This recipe bridges that gap with **two keybindings**:
+
+- **Harpoon → Tabline** (`<Leader>bsh`): Closes non-Harpoon buffers, opens missing Harpoon files, and sorts the tabline to match your Harpoon order
+- **Tabline → Harpoon** (`<Leader><Leader>b`): Resets your Harpoon marks to match currently open buffers in tabline order
+
+Work naturally with your buffers, snapshot them into Harpoon, or restore your Harpoon set — both directions available on demand.
 
 ## Requirements
 
@@ -15,7 +22,3 @@ Harpoon lets you pin frequently-used files for quick navigation. But your tablin
 ## Installation
 
 Add to your `community.lua`:
-
-```lua
-{ import = "astrocommunity.recipes.harpoon-bufsync" },
-```

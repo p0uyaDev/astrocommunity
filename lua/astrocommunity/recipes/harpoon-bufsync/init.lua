@@ -6,7 +6,41 @@ return {
       opts.mappings = opts.mappings or {}
       opts.mappings.n = opts.mappings.n or {}
 
-      -- Sync tabline buffers to Harpoon mark order
+      -- ── <Leader><Leader>b: Reset Harpoon from open buffers ──────
+      opts.mappings.n["<Leader><Leader>b"] = {
+        function()
+          local harpoon = require "harpoon"
+          local list = harpoon:list()
+          local buffer = require "astrocore.buffer"
+
+          -- Remember where we are
+          local current_buf = vim.api.nvim_get_current_buf()
+
+          -- Nuke existing Harpoon marks
+          list.items = {}
+
+          -- Re-add each open buffer, preserving tabline order
+          for _, bufnr in ipairs(vim.t.bufs or {}) do
+            if buffer.is_valid(bufnr) then
+              local path = vim.api.nvim_buf_get_name(bufnr)
+              if path ~= "" and vim.fn.filereadable(path) == 1 then
+                -- Switch to this buffer so Harpoon's add() picks it up
+                pcall(vim.api.nvim_set_current_buf, bufnr)
+                list:add()
+              end
+            end
+          end
+
+          -- Restore the buffer we started on
+          pcall(vim.api.nvim_set_current_buf, current_buf)
+
+          -- Quick feedback
+          vim.notify("Harpoon marks reset: " .. #list.items .. " files from tabline", vim.log.levels.INFO)
+        end,
+        desc = "Reset Harpoon from buffers",
+      }
+
+      -- ── <Leader>bsh: Sync tabline to Harpoon order ─────────────
       opts.mappings.n["<Leader>bsh"] = {
         function()
           local harpoon = require "harpoon"
