@@ -12,13 +12,3 @@ This recipe bridges that gap with **two keybindings**:
 - **Tabline → Harpoon** (`<Leader><Leader>b`): Resets your Harpoon marks to match currently open buffers in tabline order
 
 Work naturally with your buffers, snapshot them into Harpoon, or restore your Harpoon set — both directions available on demand.
-
-## Requirements
-
-- [Harpoon v2](https://github.com/ThePrimeagen/harpoon) (branch `harpoon2`)
-- [AstroCore](https://github.com/AstroNvim/astrocore) (bundled with AstroNvim)
-- [Heirline](https://github.com/rebelot/heirline.nvim) (AstroNvim default tabline)
-
-## Installation
-
-Add to your `community.lua`:
