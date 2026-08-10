@@ -13,10 +13,8 @@ return {
           local list = harpoon:list()
           local buffer = require "astrocore.buffer"
 
-          -- Remember where we are
           local current_buf = vim.api.nvim_get_current_buf()
 
-          -- Nuke existing Harpoon marks
           list.items = {}
 
           -- Re-add each open buffer, preserving tabline order
@@ -31,10 +29,8 @@ return {
             end
           end
 
-          -- Restore the buffer we started on
           pcall(vim.api.nvim_set_current_buf, current_buf)
 
-          -- Quick feedback
           vim.notify("Harpoon marks reset: " .. #list.items .. " files from tabline", vim.log.levels.INFO)
         end,
         desc = "Reset Harpoon from buffers",
@@ -90,7 +86,6 @@ return {
           -- Write back the sorted order
           vim.t.bufs = vim.tbl_map(function(item) return item.bufnr end, new_order)
 
-          -- Refresh the tabline
           vim.cmd "redrawtabline"
         end,
         desc = "Sort by Harpoon",
